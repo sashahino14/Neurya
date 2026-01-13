@@ -17,8 +17,11 @@ jobs:
       - name: Installation des outils
         run: npm install && npx cap sync
       
-      - name: Création de l'APK
-        run: cd android && ./gradlew assembleDebug
+      - name: Création de l'APK (Correction Permissions)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
         
       - name: Récupération du fichier
         uses: actions/upload-artifact@v3
