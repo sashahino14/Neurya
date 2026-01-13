@@ -1,0 +1,27 @@
+name: Build NEURYA
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: { node-version: '18' }
+      - uses: actions/setup-java@v3
+        with: { distribution: 'zulu', java-version: '17' }
+        
+      - name: Installation des outils
+        run: npm install && npx cap sync
+      
+      - name: Création de l'APK
+        run: cd android && ./gradlew assembleDebug
+        
+      - name: Récupération du fichier
+        uses: actions/upload-artifact@v3
+        with:
+          name: neurya-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk

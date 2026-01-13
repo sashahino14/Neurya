@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>NEURYA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">NEURYA 🧠</div>
+    </header>
+
+    <div id="screen-home" class="container">
+        <p class="subtitle">Sélectionne une matière</p>
+        <div class="grid-menu">
+            </div>
+    </div>
+
+    <div id="screen-chapters" class="container hidden">
+        <button onclick="goHome()" class="btn-back">⬅ Retour</button>
+        <h2 id="subject-title">Matière</h2>
+        <div id="chapter-list"></div>
+    </div>
+
+    <div id="screen-course" class="container hidden">
+        <button onclick="goBackToChapters()" class="btn-back">⬅ Chapitres</button>
+        <h2 id="course-title">Titre</h2>
+        <div id="course-content" class="course-body"></div>
+        <button onclick="startQuiz()" class="btn-quiz">Passer au Quiz 📝</button>
+    </div>
+
+    <div id="screen-quiz" class="container hidden">
+        <div class="quiz-header">
+            <span id="quiz-progress">Question 1/5</span>
+            <span id="quiz-score">Score: 0</span>
+        </div>
+        <div class="card">
+            <h3 id="question-text">Question...</h3>
+            <div id="options-container"></div>
+            <p id="feedback" class="feedback hidden"></p>
+        </div>
+        <button id="btn-next" class="btn-next hidden" onclick="nextQuestion()">Suivant</button>
+        <button onclick="goBackToChapters()" class="btn-small">Quitter le quiz</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

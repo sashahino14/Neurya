@@ -1,0 +1,41 @@
+:root {
+    --primary: #4e54c8;
+    --secondary: #8f94fb;
+    --bg: #f4f5f9;
+    --text: #333;
+    --white: #ffffff;
+}
+
+body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: var(--text); padding-bottom: 50px; }
+
+header { background: linear-gradient(to right, var(--primary), var(--secondary)); padding: 20px; color: white; text-align: center; font-weight: bold; font-size: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+.container { padding: 20px; max-width: 600px; margin: 0 auto; }
+.hidden { display: none; }
+.subtitle { color: #666; font-size: 14px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Menu grille */
+.grid-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.card-subject { background: var(--white); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; font-weight: bold; transition: transform 0.1s; }
+.card-subject:active { transform: scale(0.95); }
+
+/* Listes */
+.chapter-item { background: var(--white); padding: 15px; margin-bottom: 10px; border-radius: 10px; border-left: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; }
+.chapter-item h3 { margin: 0; font-size: 16px; }
+.chapter-item p { margin: 5px 0 0; font-size: 12px; color: #666; }
+
+/* Cours */
+.course-body { background: var(--white); padding: 20px; border-radius: 10px; line-height: 1.6; font-size: 16px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.course-body h3 { color: var(--primary); margin-top: 20px; }
+
+/* Quiz */
+.card { background: var(--white); padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+.btn-option { width: 100%; padding: 15px; margin-top: 10px; border: 2px solid #eee; background: white; border-radius: 10px; font-size: 16px; text-align: left; }
+.correct { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+.wrong { background: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+
+/* Boutons */
+.btn-quiz { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+.btn-next { width: 100%; background: #333; color: white; border: none; padding: 15px; border-radius: 10px; font-size: 16px; margin-bottom: 10px; }
+.btn-back { background: none; border: none; color: #666; margin-bottom: 10px; font-size: 14px; display: flex; align-items: center; }
+.btn-small { background: none; border: none; color: #888; width: 100%; text-decoration: underline; }
