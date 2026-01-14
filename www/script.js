@@ -1,35 +1,52 @@
-// --- STRUCTURE DE L'ÉCOLE ---
-// C'est ici qu'on définit les classes et les matières pour chaque niveau
+// --- STRUCTURE SCOLAIRE IVOIRIENNE 🇨🇮 ---
 const schoolStructure = {
-    "Premier Cycle": {
-        "6ème": ["Histoire", "Géographie", "SVT", "Anglais", "Français"],
-        "5ème": ["Histoire", "Géographie", "SVT", "Anglais", "Français", "Physique-Chimie"],
-        "4ème": ["Histoire", "Géographie", "SVT", "Anglais", "Français", "Physique-Chimie", "Espagnol/Allemand"],
-        "3ème": ["Histoire", "Géographie", "SVT", "Anglais", "Français", "Physique-Chimie", "Espagnol/Allemand"]
+    "Premier Cycle (Collège)": {
+        "6ème": ["Français", "Mathématiques", "Histoire-Géographie", "SVT", "Anglais", "EDHC", "Arts Plastiques", "Éducation Musicale", "EPS", "SNT (Initiation)"],
+        "5ème": ["Français", "Mathématiques", "Histoire-Géographie", "SVT", "Anglais", "Physique-Chimie", "EDHC", "Arts Plastiques", "Éducation Musicale", "EPS"],
+        "4ème": ["Français", "Mathématiques", "Histoire-Géographie", "SVT", "Physique-Chimie", "Anglais", "Allemand", "Espagnol", "EDHC", "Arts Plastiques", "Éducation Musicale", "EPS"],
+        "3ème": ["Français", "Mathématiques", "Histoire-Géographie", "SVT", "Physique-Chimie", "Anglais", "Allemand", "Espagnol", "EDHC", "Arts Plastiques", "Éducation Musicale", "EPS"]
     },
-    "Second Cycle": {
-        "2nde": ["Français", "Anglais", "Histoire-Géo", "Maths", "Physique-Chimie", "SVT"],
-        "1ère": ["Français", "Philo", "Histoire-Géo", "Maths", "Physique-Chimie", "SVT"],
-        "Terminale A": ["Philosophie", "Français", "Anglais", "Histoire-Géo", "Maths", "Allemand/Espagnol"],
-        "Terminale D": ["Mathématiques", "Physique-Chimie", "SVT", "Philosophie", "Français", "Anglais"]
+    "Second Cycle (Lycée)": {
+        "2nde A": ["Français", "Anglais", "Allemand/Espagnol", "Histoire-Géographie", "Mathématiques", "SVT", "Physique-Chimie", "EPS", "EDHC"],
+        "2nde C": ["Mathématiques", "Physique-Chimie", "SVT", "Français", "Anglais", "Histoire-Géographie", "EPS", "EDHC", "SNT"],
+        
+        "1ère A": ["Français", "Philosophie", "Histoire-Géographie", "Anglais", "Allemand/Espagnol", "Mathématiques", "SVT", "EPS", "SES"],
+        "1ère C": ["Mathématiques", "Physique-Chimie", "SVT", "Français", "Histoire-Géographie", "Anglais", "EPS"],
+        "1ère D": ["SVT", "Physique-Chimie", "Mathématiques", "Français", "Histoire-Géographie", "Anglais", "EPS"],
+        
+        "Terminale A": ["Philosophie", "Français", "Histoire-Géographie", "Anglais", "Allemand/Espagnol", "Mathématiques", "EPS", "SES"],
+        "Terminale C": ["Mathématiques", "Physique-Chimie", "Philosophie", "Histoire-Géographie", "Anglais", "SVT", "EPS"],
+        "Terminale D": ["Mathématiques", "Physique-Chimie", "SVT", "Français", "Philosophie", "Histoire-Géographie", "Anglais", "EPS"]
     }
 };
 
-// --- CONTENU DES COURS (EXEMPLE) ---
-// La clé est : "CLASSE - MATIÈRE" (Ex: "Terminale D - SVT")
+// --- CONTENU DES COURS (Exemples pour tester) ---
+// Format de la clé : "CLASSE - MATIÈRE"
+// Copie cette structure pour ajouter tes vrais cours
 const library = {
-    "Terminale D - Histoire-Géo": [
+    "Terminale D - SVT": [
         {
-            titre: "La Guerre Froide",
-            resume: "Les blocs de l'Est et de l'Ouest",
-            cours: "<h3>Introduction</h3><p>Contenu du cours sur la guerre froide...</p>",
-            quiz: [{ q: "Date début ?", opts: ["1945", "1914"], good: 0, note: "" }]
+            titre: "La reproduction humaine",
+            resume: "Étude des gamètes et de la fécondation",
+            cours: "<h3>I. Introduction</h3><p>La reproduction humaine implique...</p>",
+            quiz: [
+                { q: "Où a lieu la fécondation ?", opts: ["Utérus", "Trompes", "Ovaire"], good: 1, note: "C'est dans le tiers supérieur de la trompe." }
+            ]
         }
     ],
-    // Tu ajouteras tes autres cours ici plus tard
+    "3ème - Histoire-Géographie": [
+        {
+            titre: "La décolonisation en Afrique",
+            resume: "Les indépendances des années 1960",
+            cours: "<h3>Le cas de la Côte d'Ivoire</h3><p>Proclamée le 7 août 1960...</p>",
+            quiz: [
+                { q: "Date indépendance RCI ?", opts: ["1958", "1960", "1962"], good: 1, note: "Le 7 août 1960." }
+            ]
+        }
+    ]
 };
 
-// --- VARIABLES DE NAVIGATION ---
+// --- LOGIQUE DE L'APPLICATION (Ne pas modifier) ---
 let currentCycle = "";
 let currentClass = "";
 let currentSubject = "";
@@ -37,7 +54,6 @@ let currentChapter = {};
 let quizStep = 0;
 let score = 0;
 
-// 1. Démarrage : Afficher les Cycles
 window.onload = () => {
     const grid = document.getElementById('grid-cycles');
     Object.keys(schoolStructure).forEach(cycle => {
@@ -49,15 +65,11 @@ window.onload = () => {
     });
 };
 
-// 2. Navigation
 function openCycle(cycle) {
     currentCycle = cycle;
     document.getElementById('cycle-title').innerText = cycle;
-    
     const grid = document.getElementById('grid-classes');
     grid.innerHTML = "";
-    
-    // Récupère les classes du cycle (ex: 6ème, 5ème...)
     Object.keys(schoolStructure[cycle]).forEach(classeName => {
         let div = document.createElement('div');
         div.className = 'card-subject';
@@ -65,43 +77,48 @@ function openCycle(cycle) {
         div.onclick = () => openClass(classeName);
         grid.appendChild(div);
     });
-
     switchScreen('screen-classes');
 }
 
 function openClass(classeName) {
     currentClass = classeName;
     document.getElementById('class-title').innerText = "Matières (" + classeName + ")";
-    
     const grid = document.getElementById('grid-subjects');
     grid.innerHTML = "";
-    
-    // Récupère les matières de la classe
     const matieres = schoolStructure[currentCycle][currentClass];
     matieres.forEach(subject => {
         let div = document.createElement('div');
         div.className = 'card-subject';
-        div.innerHTML = `<span>📚</span><br>${subject}`;
+        // Petit hack pour mettre des émojis selon la matière
+        let icon = "📚";
+        if(subject.includes("Math")) icon = "📐";
+        if(subject.includes("SVT") || subject.includes("Physique")) icon = "🔬";
+        if(subject.includes("Sport") || subject.includes("EPS")) icon = "🏃";
+        if(subject.includes("Art") || subject.includes("Musi")) icon = "🎨";
+        if(subject.includes("Anglais") || subject.includes("Esp") || subject.includes("All")) icon = "🗣️";
+        
+        div.innerHTML = `<span>${icon}</span><br>${subject}`;
         div.onclick = () => openSubject(subject);
         grid.appendChild(div);
     });
-
     switchScreen('screen-subjects');
 }
 
 function openSubject(subject) {
     currentSubject = subject;
-    document.getElementById('subject-title').innerText = `${subject} (${currentClass})`;
-    
+    document.getElementById('subject-title').innerText = `${subject}`;
     const list = document.getElementById('chapter-list');
     list.innerHTML = "";
     
-    // Clé unique pour trouver le cours : "CLASSE - MATIÈRE"
+    // On cherche si on a des cours pour cette combinaison Classe + Matière
     const uniqueKey = `${currentClass} - ${currentSubject}`;
     const chapters = library[uniqueKey] || [];
 
     if(chapters.length === 0) {
-        list.innerHTML = "<p style='text-align:center; color:#999'>Aucun cours disponible pour le moment.</p>";
+        list.innerHTML = `<div style='text-align:center; color:#888; margin-top:50px'>
+            <p style='font-size:40px'>📂</p>
+            <p>Aucun cours disponible pour le moment en<br><strong>${subject}</strong> (${currentClass})</p>
+        </div>`;
     } else {
         chapters.forEach((chap, idx) => {
             let div = document.createElement('div');
@@ -111,7 +128,6 @@ function openSubject(subject) {
             list.appendChild(div);
         });
     }
-
     switchScreen('screen-chapters');
 }
 
@@ -122,7 +138,6 @@ function openCourse(uniqueKey, index) {
     switchScreen('screen-course');
 }
 
-// 3. Quiz (inchangé)
 function startQuiz() {
     quizStep = 0; score = 0;
     showQuestion();
@@ -168,7 +183,6 @@ function nextQuestion() {
     else { alert(`Quiz terminé ! Note : ${score}/${currentChapter.quiz.length}`); goBackToChapters(); }
 }
 
-// Utilitaires de navigation (Retour arrière)
 function switchScreen(id) {
     document.querySelectorAll('.container').forEach(d => d.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
