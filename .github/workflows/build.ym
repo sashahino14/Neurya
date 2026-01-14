@@ -14,16 +14,13 @@ jobs:
       - uses: actions/setup-java@v3
         with: { distribution: 'zulu', java-version: '17' }
         
-      - name: Installation des outils
+      - name: Installation et Sync
         run: npm install && npx cap sync
       
-      - name: Création de l'APK (Correction Permissions)
-        run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleDebug
+      - name: Compilation APK
+        run: cd android && chmod +x gradlew && ./gradlew assembleDebug
         
-      - name: Récupération du fichier
+      - name: Sauvegarde APK
         uses: actions/upload-artifact@v3
         with:
           name: neurya-apk
