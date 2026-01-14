@@ -1,8 +1,5 @@
 name: Build NEURYA
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   build:
@@ -14,13 +11,13 @@ jobs:
       - uses: actions/setup-java@v3
         with: { distribution: 'zulu', java-version: '17' }
         
-      - name: Installation et Sync
+      - name: Installation
         run: npm install && npx cap sync
       
-      - name: Compilation APK
+      - name: Build
         run: cd android && chmod +x gradlew && ./gradlew assembleDebug
         
-      - name: Sauvegarde APK
+      - name: Sauvegarde
         uses: actions/upload-artifact@v3
         with:
           name: neurya-apk
