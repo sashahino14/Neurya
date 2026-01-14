@@ -12,14 +12,26 @@
         <div class="logo">NEURYA 🧠</div>
     </header>
 
-    <div id="screen-home" class="container">
-        <p class="subtitle">Sélectionne une matière</p>
-        <div class="grid-menu">
+    <div id="screen-cycles" class="container">
+        <p class="subtitle">Bienvenue ! Choisis ton niveau</p>
+        <div class="grid-menu" id="grid-cycles">
             </div>
     </div>
 
+    <div id="screen-classes" class="container hidden">
+        <button onclick="goBackToCycles()" class="btn-back">⬅ Retour Cycles</button>
+        <p class="subtitle" id="cycle-title">Cycle</p>
+        <div class="grid-menu" id="grid-classes"></div>
+    </div>
+
+    <div id="screen-subjects" class="container hidden">
+        <button onclick="goBackToClasses()" class="btn-back">⬅ Retour Classes</button>
+        <p class="subtitle" id="class-title">Matières</p>
+        <div class="grid-menu" id="grid-subjects"></div>
+    </div>
+
     <div id="screen-chapters" class="container hidden">
-        <button onclick="goHome()" class="btn-back">⬅ Retour</button>
+        <button onclick="goBackToSubjects()" class="btn-back">⬅ Retour Matières</button>
         <h2 id="subject-title">Matière</h2>
         <div id="chapter-list"></div>
     </div>
