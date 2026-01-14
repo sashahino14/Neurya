@@ -7,12 +7,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      # Node 20 (Requis par Capacitor)
+      # Node 20
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # CORRECTION ICI : On passe à Java 21
+      # Java 21 (Celui qui marche !)
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
@@ -22,6 +22,19 @@ jobs:
         run: |
           npm install
           npx cap sync
+
+      # --- CORRECTION DU CONFLIT KOTLIN ---
+      # On injecte une règle pour forcer l'usage d'une seule version
+      - name: Patch Kotlin Conflict
+        run: |
+          echo "
+          configurations.all {
+              resolutionStrategy {
+                  force 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+                  force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
+              }
+          }
+          " >> android/app/build.gradle
 
       - name: Build APK
         run: cd android && chmod +x gradlew && ./gradlew assembleDebug
