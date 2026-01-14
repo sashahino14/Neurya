@@ -1,24 +1,31 @@
 name: Build Android
-on: 
-  push:
-    branches:
-      - main
+on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      # CORRECTION ICI : On passe à Node 20
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
-      - run: npm install
-      - run: npx cap sync
-      - run: cd android && chmod +x gradlew && ./gradlew assembleDebug
+
+      - name: Installation & Sync
+        run: |
+          npm install
+          npx cap sync
+
+      - name: Build APK
+        run: cd android && chmod +x gradlew && ./gradlew assembleDebug
+
       - uses: actions/upload-artifact@v4
         with:
-          name: mon-apk
+          name: neurya-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
